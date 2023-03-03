@@ -10,6 +10,8 @@ public class PresentersFactory : MonoBehaviour
     [SerializeField] private Presenter _asteroidTemplate;
     [SerializeField] private Presenter _asteroidPartTemplate;
     [SerializeField] private Presenter _nloTemplate;
+    [SerializeField] private Presenter _negativeNloTemplate;
+
 
     public void CreateBullet(Bullet bullet)
     {
@@ -25,9 +27,15 @@ public class PresentersFactory : MonoBehaviour
             CreatePresenter(_asteroidPartTemplate, asteroid.Model.CreatePart());
     }
 
-    public void CreateNlo(Nlo nlo)
+    public void CreateNlo(ArmyEnemy nlo)
     {
         CreatePresenter(_nloTemplate, nlo);
+    }
+
+    public void CreateNegativeNlo(ArmyEnemy _negativNlo)
+    {
+        CreatePresenter(_negativeNloTemplate, _negativNlo);
+        
     }
 
     public void CreateAsteroid(Asteroid asteroid)
