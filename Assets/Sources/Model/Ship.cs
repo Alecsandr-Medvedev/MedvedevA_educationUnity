@@ -11,6 +11,9 @@ namespace Asteroids.Model
         private readonly float _maxSpeed = 0.0015f;
         private readonly float _secondsToStop = 1f;
         private readonly float _degreesPerSecond = 180;
+        private int _countLives = 3;
+        private float _maxTimeImmortality = 1;
+        private float _nowTimeImmortality = 0;
 
         public Vector2 Acceleration { get; private set; }
 
@@ -38,6 +41,15 @@ namespace Asteroids.Model
         public void Update(float deltaTime)
         {
             Move(Acceleration);
+            if (_nowTimeImmortality > 0)
+            {
+                _nowTimeImmortality -= deltaTime;
+            }
+            else if (_nowTimeImmortality < 0)
+            {
+                _nowTimeImmortality = 0;
+            }
+
         }
 
         private void Move(Vector2 delta)
@@ -48,6 +60,38 @@ namespace Asteroids.Model
             nextPosition.y = Mathf.Repeat(nextPosition.y, 1);
 
             MoveTo(nextPosition);
+        }
+
+        public void subtractLife()
+        {
+            if (_nowTimeImmortality == 0)
+            {
+                _nowTimeImmortality = _maxTimeImmortality;
+                _countLives -= 1;
+                if (_countLives < 0)
+                {
+                    _countLives = 0;
+                }
+            }
+            
+        }
+
+        public bool isAlive()
+        {
+            if (_countLives == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            
+        }
+
+        public int getLives()
+        {
+            return _countLives;
         }
     }
 }

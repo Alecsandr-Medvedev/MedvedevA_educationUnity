@@ -21,7 +21,11 @@ public class Root : MonoBehaviour
 
     public void DisableShip()
     {
-        _shipInputRouter.OnDisable();
+        _shipModel.subtractLife();
+        if (!_shipModel.isAlive())
+        {
+            _shipInputRouter.OnDisable();
+        }
     }
 
     private void Awake()
@@ -73,5 +77,10 @@ public class Root : MonoBehaviour
     private void OnShipDestroying()
     {
         _endGameWindow.Show(0, () => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex));
+    }
+
+    public int getLives()
+    {
+        return _shipModel.getLives();
     }
 }
